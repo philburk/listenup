@@ -1,0 +1,10 @@
+This is the NOTICE file for JavaSonicsListenUp as described by the Apache License Version 2.0.
+
+ListenUp - Copyright 2001 Mobileer Inc
+
+ListenUp was released under Apache License Version 2.0 by Mobileer Inc in March 2017.
+
+Phil Burk and Nick Didkovsky were the primary developers of ListenUp.
+
+The Speex voice compression software is copyright 1999 Wimba S.A.
+See Speex source files for the Speex copyright.

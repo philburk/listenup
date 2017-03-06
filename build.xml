@@ -1,0 +1,60 @@
+<project name="ListenUpProject" default="dist" basedir=".">
+    <description>
+        Build Javasonics ListenUp
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src.dir"   location="src"/>
+  <property name="build.dir" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="main-class"  value="com.softsynth.javasonics.recplay.PlayerApplet"/>
+  <property name="jarname"  value="listenup"/>
+  <property name="java-version" value="1.6"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the necessary directories. -->
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac target="${java-version}" source="${java-version}"
+        srcdir="${src.dir}" destdir="${build.dir}">
+      <classpath>
+      	<!--   <pathelement path="libs/activation.jar"/>
+        <pathelement path="libs/JavaSonicClasses.jar"/>
+        <pathelement path="libs/mail.jar"/>
+        <pathelement path="libs/plugin.jar"/>
+        <pathelement path="libs/servlet23.jar"/>    -->
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/lib"/>
+
+    <!-- Put everything in ${build} into the listenup-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/lib/${jarname}-${DSTAMP}.jar" basedir="${build.dir}">
+        <manifest>
+            <attribute name="Main-Class" value="${main-class}"/>
+        	<attribute name="Codebase" value="*"/>
+        	<attribute name="Permissions" value="all-permissions"/>
+        	<attribute name="Application-Library-Allowable-Codebase" value="*"/>
+        	<attribute name="Caller-Allowable-Codebase" value="*"/>
+        	<attribute name="Application-Name" value="ListenUp"/>
+        </manifest>
+    	<fileset dir="." includes="images/**" />
+    </jar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the directories created by ant. -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

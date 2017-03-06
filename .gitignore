@@ -1,0 +1,8 @@
+# ignore Eclipse and Ant generated directories
+/build/
+/bin/com/
+/bin/org/
+/dist/
+/doc/
+
+/bin/

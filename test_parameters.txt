@@ -1,0 +1,7 @@
+# parameters for ListenUp
+editable=true
+autobackstep=1.0
+foreground=405060
+background=F0E0D0
+sampleurl=http://www.javasonics.com/listenup/uploads/message_2minute_nick.spx
+uploadurl=http://www.javasonics.com/test/qa/handle_upload_simple.php
