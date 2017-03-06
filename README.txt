@@ -8,7 +8,7 @@ ListenUp is a Java voice recorder that can upload recordings to a web server.
 
 The source code is available at:
 
-https://github.com/philburk/jsyn
+https://github.com/philburk/listenup
 
 More information about ListenUp, including documentation, is at:
 
