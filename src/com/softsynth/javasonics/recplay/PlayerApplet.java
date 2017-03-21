@@ -75,7 +75,7 @@ public class PlayerApplet extends Applet implements PlayerListener,
 	// TODO Update version for feature releases.
 	final static int MAJOR_VERSION = 1;
 	final static int MINOR_VERSION = 103;
-	final static int REVISION = 1;
+	final static int REVISION = 2;
 	final static String VERSION_QUALIFIER = "";
 
 	final static boolean THIS_WAS_NOT_BROKEN = false;
@@ -83,10 +83,10 @@ public class PlayerApplet extends Applet implements PlayerListener,
 	public final static String VERSION_NUMBER = MAJOR_VERSION + "."
 			+ MINOR_VERSION + "." + REVISION;
 	// TODO Update index whenever we build a release.
-	public final static int BUILD_NUMBER = 516;
+	public final static int BUILD_NUMBER = 517;
 	// TODO Set new date when code built for release.
 	private final static long BUILD_TIME = new GregorianCalendar( 2017,
-			GregorianCalendar.JANUARY, 28 ).getTime().getTime();
+			GregorianCalendar.MARCH, 21 ).getTime().getTime();
 
 	// This is used to prevent an untested version from being used indefinitely
 	// if it leaks out.
@@ -94,19 +94,9 @@ public class PlayerApplet extends Applet implements PlayerListener,
 	protected final static boolean EXPIRE_AFTER_TEST_PERIOD = true;
 	private final static long EXPIRE_NUM_DAYS = 200;
 
-	// TODO Set this to BUILD_TIME or other date before which we want to require
-	// a maintenance fee to upgrade.
-	private final static long UPGRADE_CUTOFF_TIME = new GregorianCalendar(
-			2008, GregorianCalendar.JULY, 16 ).getTime().getTime();
-	private final static long ALLOW_UPGRADE_NUM_DAYS = 365 + 10;
 
 	final static String VERSION_TEXT = "V" + VERSION_NUMBER + VERSION_QUALIFIER
 			+ " (build " + BUILD_NUMBER + ", " + (new Date( BUILD_TIME )) + ")";
-
-	// Licenses before this date can upgrade regardless of the
-	// UPGRADE_CUTOFF_TIME. Do NOT change!
-	private final static long GRANDFATHER_TIME = new GregorianCalendar( 2007,
-			GregorianCalendar.JUNE, 1 ).getTime().getTime(); // DO NOT CHANGE
 
 	private int debugLevel = 0;
 	// protected final static String TEST_URL =
@@ -247,6 +237,7 @@ public class PlayerApplet extends Applet implements PlayerListener,
 
 	// Used for calling JavaScript from Java.
 	private JSObject javaScriptWindow = null;
+	private boolean mLiveConnectEnabled = true;
 	// Save parameters for coreDump
 	private Hashtable savedParameters = new Hashtable();
 	private String userAgent;
@@ -490,36 +481,6 @@ public class PlayerApplet extends Applet implements PlayerListener,
 	}
 
 	/**
-	 * Check to see if this code was built more than one year after the license
-	 * issue date.
-	 *
-	 * @param timeIssued
-	 */
-	private final void checkUpgrade( long timeIssued )
-	{
-		// Grandfather in old users.
-		// Only check if license issued after grandfather date.
-		// Folks with earlier license avoid the check.
-		if( timeIssued > GRANDFATHER_TIME )
-		{
-			final long msecPerDay = 1000 * 60 * 60 * 24;
-			long lastUpgradeTime = timeIssued
-					+ (msecPerDay * ALLOW_UPGRADE_NUM_DAYS);
-			// If the current software too new for the user's license?
-			if( UPGRADE_CUTOFF_TIME > lastUpgradeTime )
-			{
-				throw new SecurityException(
-						"This version of ListenUp compiled more than "
-								+ (ALLOW_UPGRADE_NUM_DAYS - 1)
-								+ " days past license date of "
-								+ new Date( timeIssued )
-								+ "\n"
-								+ "Maintenance fee required to use this new version." );
-			}
-		}
-	}
-
-	/**
 	 * Called internally by browser when an Applet is started. Do <b>not </b>
 	 * call from JavaScript.
 	 */
@@ -556,7 +517,7 @@ public class PlayerApplet extends Applet implements PlayerListener,
 
 	private void setupLiveConnect()
 	{
-		if( javaScriptWindow == null )
+		if( javaScriptWindow == null && isLiveConnectEnabled())
 		{
 			try
 			{
@@ -568,6 +529,16 @@ public class PlayerApplet extends Applet implements PlayerListener,
 				Logger.println( 0, "Error creating LiveConnect object. " + e );
 			}
 		}
+	}
+
+	public boolean isLiveConnectEnabled()
+	{
+		return mLiveConnectEnabled;
+	}
+
+	public void setLiveConnectEnabled( boolean liveConnectEnabled )
+	{
+		this.mLiveConnectEnabled = liveConnectEnabled;
 	}
 
 	protected void checkMicrosoftJava() throws UserException
@@ -2413,7 +2384,6 @@ public class PlayerApplet extends Applet implements PlayerListener,
 	public void parseArguments( String[] args )
 	{
 		Logger.println( 0, "ListenUp (C) Mobileer Inc" );
-		Logger.println( 0, "ListenUp may only be used with a valid license issued by Mobileer Inc." );
 		String codeBase = null;
 		String propertyFileName = null;
 		boolean helpPrinted = false;
@@ -2466,7 +2436,8 @@ public class PlayerApplet extends Applet implements PlayerListener,
 		int x = 100;
 		int y = 100;
 		int w = 900;
-		int h = 600;
+		int h = 400;
+		setLiveConnectEnabled(false); // only for browsers
 		for (String arg : args)
 		{
 			if( arg.charAt( 0 ) == '-')

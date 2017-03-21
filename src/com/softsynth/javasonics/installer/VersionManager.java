@@ -10,7 +10,7 @@ import com.softsynth.javasonics.util.Logger;
 
 /**
  * Manages installed versions of libraries and native code.
- * 
+ *
  * @author Phil Burk (C) 2004
  */
 class VersionManager
@@ -32,8 +32,8 @@ class VersionManager
 			// That's OK. It may not have been created yet.
 			Logger
 					.println( 0,
-							"VersionManager. Local ListenUp properties could not be loaded." );
-			Logger.println( 1, "VersionManager. caught " + e );
+							"VersionManager. Local ListenUp properties were not loaded." );
+			Logger.println( 2, "VersionManager. caught " + e );
 		}
 	}
 
@@ -60,7 +60,7 @@ class VersionManager
 
 	/**
 	 * @throws IOException
-	 * 
+	 *
 	 */
 	private void saveLocalProperties() throws IOException
 	{

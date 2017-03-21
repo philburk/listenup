@@ -1,5 +1,9 @@
 # parameters for ListenUp
 editable=true
-foreground=405060
-background=80E0D0
-uploadurl=http://www.javasonics.com/test/qa/handle_upload_simple.php
+foreground=203040
+background=F0E0D0
+format=speex
+frameRate=16000
+uploadFileName=message_12345.spx
+putTimeOnTop=yes
+uploadurl=http://www.javasonics.com/demos/speex/handle_upload_simple.php
