@@ -200,7 +200,7 @@ public final class RecorderUploadApplet extends RecorderApplet implements
 
 		Logger.println( "refreshURL = " + refreshUrl );
 		Logger.println( "refreshTarget = " + refreshTarget );
-		Logger.println( "uploadURL = " + uploadURL );
+		Logger.println( 0, "uploadURL = " + uploadURL );
 		Logger.println( "uploadURL port = " + uploadURL.getPort() );
 		Logger.println( "getNameUrl = " + getNameURL );
 	}
