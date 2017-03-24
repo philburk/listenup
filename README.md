@@ -14,7 +14,6 @@ More information about ListenUp, including documentation, is at:
 
 http://www.javasonics.com/
 
-
 To build ListenUp, use ant. Just enter:
 
     cd listenup
@@ -23,9 +22,11 @@ To build ListenUp, use ant. Just enter:
 The resulting jar will be placed in "/dist/lib/".
 To run the built-in test App on a desktop, enter something like this:
 
-    java -jar dist/lib/listenup-20160203.jar
+    java -cp dist/lib/listenup-20170321.jar \
+       com.softsynth.javasonics.recplay.RecorderUploadApplet \
+       -pupload_parameters.txt
 
 but with the correct date.
 
-If you are using Eclipse and get an error message about missing a "/images/" file then copy		
+If you are using Eclipse and get an error message about missing a "/images/" file then copy
 the /images/ folder into the /bin/ folder.
