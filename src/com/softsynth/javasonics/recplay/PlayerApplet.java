@@ -91,7 +91,7 @@ public class PlayerApplet extends Applet implements PlayerListener,
 	// This is used to prevent an untested version from being used indefinitely
 	// if it leaks out.
 	// FIXME set back to false before official release
-	protected final static boolean EXPIRE_AFTER_TEST_PERIOD = true;
+	protected final static boolean EXPIRE_AFTER_TEST_PERIOD = false;
 	private final static long EXPIRE_NUM_DAYS = 200;
 
 
